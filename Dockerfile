@@ -7,14 +7,14 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
-# Install project dependencies
-RUN npm install
+# Install project dependencies (including sqlite3)
+RUN npm install sqlite3 && npm install
 
 # Copy the rest of the application code to the container
 COPY . .
 
-# Expose the port that your Node.js app is listening on
-EXPOSE 3000
+# Expose the port required by Render (default 10000)
+EXPOSE 10000
 
 # Command to run your Node.js application
-CMD [ "node", "index.js" ]
+CMD ["node", "index.js"]
